@@ -1,5 +1,6 @@
 .header-row-wrapper {
-    background: #ef6c00;
+    background: #8245CE;
+    /* #ef6c00; */
     display: flex;
     height: 48px;
     padding: 0 24px;
@@ -56,6 +57,7 @@
 .podcast-card-wrapper {
     padding: 20px;
     margin: 5px;
-    color: rgb(117, 117, 117);
-    border: 1px solid gainsboro;
+    color: #000;
+    border: 1px solid #8245CE;
+    border-radius: 5px;
 }
