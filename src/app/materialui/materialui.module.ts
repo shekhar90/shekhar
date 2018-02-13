@@ -6,7 +6,8 @@ import {
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
   declarations: [],
   exports: [
