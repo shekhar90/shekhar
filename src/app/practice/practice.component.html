@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="card col-sm">
+        <div class="card-body">
+            <h5 class="card-title">{{model.title}}</h5>
+        </div>
+        <div class="card-body">
+            <label for="categoryDescription">Choose category</label>
+            <select class="form-control" [(ngModel)]="model.categoryDescription" name="categoryDescription" id="categoryDescription">
+          <option *ngFor="let option of categories" [value]="option.categoryDescription">{{option.categoryDescription}}</option>
+        </select>
+            <label for="levelDescription">Difficulty</label>
+            <select class="form-control" [(ngModel)]="model.levelDescription" name="levelDescription" id="levelDescription">
+          <option *ngFor="let option of difficulty" [value]="option.levelDescription">{{option.levelDescription}}</option>
+        </select>
+        </div>
+        <div class="card-body">
+            <button (click)="handleNextClick()" type="button" class="btn btn-outline-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#catModalCenter">{{model.btnTxt}}</button>
+        </div>
+    </div>
+</div>
+<!-- Category selection alert -->
+<div class="modal fade" id="catModalCenter" tabindex="-1" role="dialog" aria-labelledby="catModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Confirmation
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p class="text-success">Hi you have selected {{model.categoryDescription}} with difficulty level {{model.levelDescription}} are you ready for challenge!</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal">I'm ready let the war begin..</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">I wanna change settings.....</button>
+            </div>
+        </div>
+    </div>
+</div>
