@@ -12,7 +12,7 @@ import { Question } from '../question';
 export class PracticeComponent implements OnInit {
   categories: Category[] = [{ id: "1", categoryDescription: "Problems on train" }, { id: "2", categoryDescription: "Permutations and combinations" }];
   difficulty: Difficulty[] = [{ id: "1", levelDescription: "Easy" }, { id: "1", levelDescription: "Medium" }, { id: "1", levelDescription: "Hard" }];
-  questions: Question[] = [{
+  questions: Question[] = [{ // final question array returned by api on the basis of user selection 
     id: "1",
     questionType: "Permutations and combinations",
     difficulty: "Easy",
