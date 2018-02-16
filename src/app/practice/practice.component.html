@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success" data-dismiss="modal" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#exampleModalCenter">I'm ready let the war begin..</button>
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#questionModalCenter">I'm ready let the war begin..</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" data-dismiss="modal">I wanna change settings.....</button>
@@ -40,20 +40,17 @@
     </div>
 </div>
 <!-- Question model -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="questionModalCenter" tabindex="-1" role="dialog" aria-labelledby="questionModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">New question</h5>
             </div>
             <div class="modal-body">
-                <p class="text-left">Left aligned text on all viewport sizes ggggg gggggg ggggggggg ggggggg gggggggggggg ggggggggggg gggggggggggg gggggggggggggggg.
+                <p class="text-left padding-b-10 border-b-q" [innerHTML]="'Q. ' + questions[nextQuestionIndex].question"></p>
+                <p class="text-left padding-b-10 border-b-q" *ngFor="let option of questions[nextQuestionIndex].options; let i = index">
+                    {{i + '. '}}<span [innerHTML]="option"></span>
                 </p>
-                <hr /> Option 1
-                <hr /> Option 2
-                <hr /> Option 3
-                <hr /> Option 4
-                <hr />
                 <div class="container">
                     <p>
                         <a class="btn btn-outline-danger" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">View answer</a>
@@ -73,7 +70,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">End practice</button>
-                <button type="button" class="btn btn-outline-primary">Next question</button>
+                <button type="button" class="btn btn-outline-primary" data-target="#questionModalCenter" (click)="getNextQuestion()">Next question</button>
             </div>
         </div>
     </div>

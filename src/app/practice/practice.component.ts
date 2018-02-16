@@ -17,25 +17,23 @@ export class PracticeComponent implements OnInit {
     questionType: "Permutations and combinations",
     difficulty: "Easy",
     question: "<sup>6</sup>P<sub>4</sub> is equal to",
-    options: {
-      o1: "18",
-      o2: "12",
-      o3: "6",
-      o4: "0"
-    },
-    answer: "o3"
-  },{
+    options: ["18",
+      "12",
+      "6",
+      "0"],
+    answer: 3
+  }, {
     id: "2",
     questionType: "Permutations and combinations",
     difficulty: "Easy",
     question: "An arrangement of finite numbers of objects taken some or all at a time is called their",
-    options: {
-      o1: "A.P",
-      o2: "Combination",
-      o3: "Sequence",
-      o4: "Permutation"
-    },
-    answer: "o4"
+    options: [
+      "A.P",
+      "Combination",
+      "Sequence",
+      "Permutation"
+    ],
+    answer: 4
   }];
   nextQuestionIndex: number = 0;
   questionArrLen: number = this.questions.length;
@@ -44,7 +42,9 @@ export class PracticeComponent implements OnInit {
     this.difficulty[0].levelDescription,
     "Next");
   handleNextClick() {
-    console.log(this.model);
+    // TODO api call get questions array on the basis of selected
+    // 1. category
+    // 2. difficulty
   }
   getNextQuestion() {
     if ((this.nextQuestionIndex + 1) < this.questionArrLen) {
