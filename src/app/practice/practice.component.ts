@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef  } from '@angular/core';
+import * as $ from 'jquery';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 import { Category } from '../category';
 import { Difficulty } from '../difficulty';
 import { PracticeCard } from '../practice-card';
@@ -41,22 +45,36 @@ export class PracticeComponent implements OnInit {
     this.categories[0].categoryDescription,
     this.difficulty[0].levelDescription,
     "Next");
+    nextDataTgt: string = "#questionModalCenter";
+    
   handleNextClick() {
     // TODO api call get questions array on the basis of selected
     // 1. category
     // 2. difficulty
   }
-  getNextQuestion() {
+  getNextQuestion(template: TemplateRef<any>, resultTemplate: TemplateRef<any>) {  
     if ((this.nextQuestionIndex + 1) < this.questionArrLen) {
       //  TODO go to next question
+      this.closeModal();
       this.nextQuestionIndex++;
+      this.openModal(template);
     } else {
       // TODO for this selection all questions are over
       // show final score 
       // give option to load next set of questions
+      this.nextQuestionIndex = 0;
+      this.closeModal();
+      this.openModal(resultTemplate);
     }
   }
-  constructor() { }
+  modalRef: BsModalRef;
+  constructor(private modalService: BsModalService) {}
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+  closeModal() {
+    this.modalRef.hide();
+  }
 
   ngOnInit() {
   }

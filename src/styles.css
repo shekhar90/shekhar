@@ -1,5 +1,8 @@
 /* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
 
+
+/* @import 'bootstrap/dist/css/bootstrap.css'; */
+
 body {
     margin: 0px;
 }
@@ -10,4 +13,8 @@ body {
 
 .border-b-q {
     border-bottom: 1px solid #e9ecef;
+}
+
+.modal {
+    top: 55px;
 }
