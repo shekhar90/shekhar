@@ -45,8 +45,10 @@
     </div>
     <div class="modal-body">
         <p class="text-left padding-b-10 border-b-q" [innerHTML]="'Q. ' + questions[nextQuestionIndex].question"></p>
-        <p class="text-left padding-b-10 border-b-q" *ngFor="let option of questions[nextQuestionIndex].options; let i = index">
-            {{i + '. '}}<span [innerHTML]="option" [ngClass]="{'text-success': questions[nextQuestionIndex].answer === i+1,'text-danger': questions[nextQuestionIndex].answer !== i+1}"></span>
+        <p class="text-left padding-b-10 border-b-q" (click)="handleOptionClick(i)" *ngFor="let option of questions[nextQuestionIndex].options; let i = index">
+            {{i + '. '}}<span [innerHTML]="option" [ngClass]="{'text-success': (questions[nextQuestionIndex].answer === i) && optionValidationArr[i],'text-danger': (questions[nextQuestionIndex].answer !== i) && optionValidationArr[i]}"></span><span class="float-right"
+                [ngClass]="{'text-success': (questions[nextQuestionIndex].answer === i) && optionValidationArr[i]}" *ngIf="(questions[nextQuestionIndex].answer === i) && optionValidationArr[i]">You are right</span><span class="float-right" [ngClass]="{'text-danger': (questions[nextQuestionIndex].answer !== i) && optionValidationArr[i]}"
+                *ngIf="(questions[nextQuestionIndex].answer !== i) && optionValidationArr[i]">Please try again</span>
         </p>
         <div class="container">
             <p>
@@ -55,14 +57,14 @@
             <p class="text-danger">This will reduce your score please try your best before viewing the answer</p>
             <div class="collapse multi-collapse" id="multiCollapseExample1">
                 <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    Correct answer: <span class="text-success">{{questions[nextQuestionIndex].answer}}</span><br> Explaination: <span></span>
                 </div>
             </div>
         </div>
         <hr />
         <div class="progress">
-            <div class="progress-bar bg-danger progress-bar-animated progress-bar-striped" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-            <div class="progress-bar bg-success progress-bar-animated progress-bar-striped" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-success progress-bar-animated progress-bar-striped" role="progressbar" [style.width.%]="progress.correctPer" [attr.aria-valuenow]="progress.correctPer" aria-valuemin="0" aria-valuemax="100">{{(progress.correctPer ? (progress.correctPer + '%'):'')}}</div>
+            <div class="progress-bar bg-danger progress-bar-animated progress-bar-striped" role="progressbar" [style.width.%]="progress.wrongPer" [attr.aria-valuenow]="progress.wrongPer" aria-valuemin="0" aria-valuemax="100">{{(progress.wrongPer ? (progress.wrongPer+'%'):'')}}</div>
         </div>
     </div>
     <div class="modal-footer">
@@ -72,9 +74,9 @@
 </ng-template>
 <ng-template #resultTemplate>
     <div class="modal-header">
-        <p class="text-success">Correct: 4</p>
-        <p class="text-danger">Wrong: 5</p>
-        <p class="text-secondary">Not attempted: 1</p>
+        <p class="text-success">Correct: {{progress.correct}}</p>
+        <p class="text-danger">Wrong: {{progress.wrong}}</p>
+        <p class="text-secondary">Not attempted: {{progress.totalQ-progress.correct-progress.wrong}}</p>
     </div>
     <div class="modal-body">
         <div class="progress">

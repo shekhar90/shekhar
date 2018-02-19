@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import { AppComponent } from './app.component';
 // import { MaterialuiModule } from './materialui/materialui.module';
@@ -20,7 +21,8 @@ import { HomeComponent } from './home/home.component'
     // MaterialuiModule,
     AppRoutingModule,
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ProgressbarModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

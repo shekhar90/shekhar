@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef  } from '@angular/core';
 import * as $ from 'jquery';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import { Category } from '../category';
 import { Difficulty } from '../difficulty';
@@ -25,7 +26,7 @@ export class PracticeComponent implements OnInit {
       "12",
       "6",
       "0"],
-    answer: 3
+    answer: 2
   }, {
     id: "2",
     questionType: "Permutations and combinations",
@@ -37,10 +38,11 @@ export class PracticeComponent implements OnInit {
       "Sequence",
       "Permutation"
     ],
-    answer: 4
+    answer: 3
   }];
   nextQuestionIndex: number = 0;
   questionArrLen: number = this.questions.length;
+  optionValidationArr: boolean[] = []; // stores either this option has been clicked by user or not
   model = new PracticeCard("Aptitude",
     this.categories[0].categoryDescription,
     this.difficulty[0].levelDescription,
@@ -57,6 +59,8 @@ export class PracticeComponent implements OnInit {
       //  TODO go to next question
       this.closeModal();
       this.nextQuestionIndex++;
+      this.firstSelection = -1; // reset first selection for new question
+      this.optionValidationArr = []; // reset validation array
       this.openModal(template);
     } else {
       // TODO for this selection all questions are over
@@ -65,6 +69,33 @@ export class PracticeComponent implements OnInit {
       this.nextQuestionIndex = 0;
       this.closeModal();
       this.openModal(resultTemplate);
+    }
+  }
+  progress: {
+    correct: number,
+    wrong: number,
+    totalQ: number,
+    correctPer: number,
+    wrongPer: number
+  } = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0};
+  firstSelection: number = -1; // first selected option by user for current question reset to -1 for new question
+  getPercentage(value, total) {
+    return value*100/total;
+  }
+  handleOptionClick(indexOfOption) {
+    this.optionValidationArr[indexOfOption] = true;
+    // TODO if user is able to choose correct option on first click
+    // Add one in correct
+    // else Add one to wrong
+    if (this.firstSelection === -1) {
+      this.firstSelection = indexOfOption;
+      if (this.questions[this.nextQuestionIndex].answer === indexOfOption) {
+        this.progress.correct++;
+        this.progress.correctPer = this.getPercentage(this.progress.correct, this.progress.totalQ);
+      } else {
+        this.progress.wrong++;
+        this.progress.wrongPer = this.getPercentage(this.progress.wrong, this.progress.totalQ)
+      }
     }
   }
   modalRef: BsModalRef;
