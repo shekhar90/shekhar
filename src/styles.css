@@ -18,3 +18,12 @@ body {
 .modal {
     top: 55px;
 }
+
+.modal-open {
+    overflow-y: auto
+}
+
+.question-modal-body {
+    max-height: 550px;
+    overflow: auto;
+}
