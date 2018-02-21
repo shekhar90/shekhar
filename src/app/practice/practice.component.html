@@ -68,6 +68,9 @@
                 <div class="progress-bar bg-danger progress-bar-animated progress-bar-striped" role="progressbar" [style.width.%]="progress.wrongPer" [attr.aria-valuenow]="progress.wrongPer" aria-valuemin="0" aria-valuemax="100">{{(progress.wrongPer ? (progress.wrongPer+'%'):'')}}</div>
             </div>
         </div>
+        <div class="modal-body text-center">
+            <button type="button" class="btn btn-outline-primary" (click)="handleAllQuestionsClick(resultTemplate)">All questions</button>
+        </div>
 
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" (click)="closeModal()">End practice</button>
@@ -81,17 +84,22 @@
         <p class="text-danger">Wrong: {{progress.wrong}}</p>
         <p class="text-secondary">Not attempted: {{progress.totalQ-progress.correct-progress.wrong}}</p>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="!isAllQuestionModelVisible">
         <div class="progress">
             <div class="progress-bar bg-success progress-bar-animated progress-bar-striped" role="progressbar" [style.width.%]="progress.correctPer" [attr.aria-valuenow]="progress.correctPer" aria-valuemin="0" aria-valuemax="100">{{(progress.correctPer ? (progress.correctPer + '%'):'')}}</div>
             <div class="progress-bar bg-danger progress-bar-animated progress-bar-striped" role="progressbar" [style.width.%]="progress.wrongPer" [attr.aria-valuenow]="progress.wrongPer" aria-valuemin="0" aria-valuemax="100">{{(progress.wrongPer ? (progress.wrongPer+'%'):'')}}</div>
         </div>
 
         <div class="container">
-            <p class="text-success">Congratulations you have completed the set!</p>
+            <p class="text-success">{{progress.correctPer === 100 ? resultMsg.fullyCorrect : resultMsg.partiallyCorrect}}</p>
         </div>
     </div>
+    <div class="modal-body">
+        <button [ngClass]="{'text-success btn-outline-success': (question.answer === answerArray[i]), 'text-danger btn-outline-danger': answerArray[i] && (question.answer !== answerArray[i]),'text-secondary btn-outline-secondary': (!answerArray[i])}" *ngFor="let question of questions; let i = index"
+            type="button" class="btn rounded-circle margin-r-5 margin-b-5" (click)="handleQuestionClick(template, i)">{{i}}</button>
+    </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Practice next set</button>
+        <button type="button" *ngIf="!isAllQuestionModelVisible" class="btn btn-outline-primary" (click)="closeModal()">Practice next set</button>
+        <button type="button" *ngIf="isAllQuestionModelVisible" class="btn btn-outline-primary" (click)="handleGoBackToPractice(template)">Go back to practice</button>
     </div>
 </ng-template>

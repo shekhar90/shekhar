@@ -54,6 +54,7 @@ export class PracticeComponent implements OnInit {
     // 1. category
     // 2. difficulty
   }
+  answerArray: number[] = [];
   getNextQuestion(template: TemplateRef<any>, resultTemplate: TemplateRef<any>) {  
     if ((this.nextQuestionIndex + 1) < this.questionArrLen) {
       //  TODO go to next question
@@ -94,8 +95,9 @@ export class PracticeComponent implements OnInit {
         this.progress.correctPer = this.getPercentage(this.progress.correct, this.progress.totalQ);
       } else {
         this.progress.wrong++;
-        this.progress.wrongPer = this.getPercentage(this.progress.wrong, this.progress.totalQ)
+        this.progress.wrongPer = this.getPercentage(this.progress.wrong, this.progress.totalQ);
       }
+      this.answerArray[this.nextQuestionIndex] = indexOfOption;
     }
   }
   modalRef: BsModalRef;
@@ -106,7 +108,52 @@ export class PracticeComponent implements OnInit {
   closeModal() {
     this.modalRef.hide();
   }
-
+  resultMsg: {
+    "fullyCorrect": string,
+    "partiallyCorrect": string
+  } = {
+    "fullyCorrect": "Congratulations you have completed the set!",
+    "partiallyCorrect": "Would you like to try not attempted questions/wrongly answered questions once again!"
+  }
+  isAllQuestionModelVisible: boolean = false;
+  handleAllQuestionsClick(resultTemplate: TemplateRef<any>) {
+    // TODO hide question modal
+    // show all question model with status of all questions 
+    this.closeModal();
+    this.openModal(resultTemplate);
+    this.isAllQuestionModelVisible = true;
+  }
+  handleGoBackToPractice(template: TemplateRef<any>) {
+    this.closeModal();
+    this.isAllQuestionModelVisible = false;
+    this.openModal(template);
+  }
+  resetOptionValidationArr(indexOfClickedQuestion: number) {
+    //  TODO if already selected option is correct then disable other options after 
+    //  initializing optionValidationArr with correct value
+    //  if wrong or not answered just initialize the optionValidationArr arr
+    this.optionValidationArr = [];
+    let correctAns: boolean = this.answerArray[indexOfClickedQuestion] && (this.answerArray[indexOfClickedQuestion] === this.questions[indexOfClickedQuestion].answer);
+    if (!this.answerArray[indexOfClickedQuestion]) { // no answer
+      this.firstSelection = -1;
+      // dont update anything
+    } else if (correctAns) { // correct answer
+      this.firstSelection = this.answerArray[indexOfClickedQuestion];
+      this.optionValidationArr[this.answerArray[indexOfClickedQuestion]] = true;
+    } else { // wrong answer
+      // TODO reduce number of wrong ans by one
+      this.progress.wrong--;
+      this.firstSelection = -1;
+      this.progress.wrongPer = this.getPercentage(this.progress.wrong, this.progress.totalQ);
+    } 
+  }
+  handleQuestionClick(template: TemplateRef<any>, indexOfClickedQuestion: number) {
+    this.closeModal();
+    this.isAllQuestionModelVisible = false;
+    this.nextQuestionIndex = indexOfClickedQuestion;
+    this.resetOptionValidationArr(indexOfClickedQuestion);
+    this.openModal(template);
+  }
   ngOnInit() {
   }
 
