@@ -61,17 +61,22 @@ export class PracticeComponent implements OnInit {
     // TODO api call get questions array on the basis of selected
     // 1. category
     // 2. difficulty
+    console.log(this.model.categoryDescription + " " + this.model.levelDescription);
     let params = new HttpParams()
-        .set("questionType", "Permutations and combinations")
-        .set("difficulty", "Easy")
+        .set("questionType", this.model.categoryDescription)
+        .set("difficulty", this.model.levelDescription);
     this.httpClient.get("http://localhost:3000/getquestion",{params}).subscribe(data => {
       if(isArray(data)) {
         this.questions = data;
         this.questionArrLen = this.questions.length;
         this.progress = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0}
-        console.log("fetching questions from db");
+        console.log("fetching questions from db" + this.questions);
         this.closeModal();
-        this.openModal(template);
+        if (this.questionArrLen > 0) {
+          this.openModal(template);
+        } else {
+          console.log("No questions available");
+        }
       };
     });
   }
