@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
@@ -18,6 +19,7 @@ import { HomeComponent } from './home/home.component'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     // MaterialuiModule,
     AppRoutingModule,
     FormsModule,
