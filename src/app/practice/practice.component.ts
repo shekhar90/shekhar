@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef  } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import * as $ from 'jquery';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { isArray } from 'util';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-practice',
@@ -19,12 +20,31 @@ import { isArray } from 'util';
   styleUrls: ['./practice.component.css']
 })
 export class PracticeComponent implements OnInit {
-  constructor(private modalService: BsModalService, private httpClient: HttpClient) {
+  constructor(
+    private modalService: BsModalService,
+    private httpClient: HttpClient
+  ) {
     // this.handleNextClick();
   }
-  categories: Category[] = [{ id: "1", categoryDescription: "Problems on train" }, { id: "2", categoryDescription: "Permutations and combinations" }];
-  difficulty: Difficulty[] = [{ id: "1", levelDescription: "Easy" }, { id: "1", levelDescription: "Medium" }, { id: "1", levelDescription: "Hard" }];
-  // questions: Question[] = [{ // final question array returned by api on the basis of user selection 
+  categories: Category[] = [
+    { id: '1', categoryDescription: 'Problems on train' },
+    { id: '2', categoryDescription: 'Permutations and combinations' }
+  ];
+  difficulty: Difficulty[] = [
+    { id: '1', levelDescription: 'Easy' },
+    { id: '1', levelDescription: 'Medium' },
+    { id: '1', levelDescription: 'Hard' }
+  ];
+  answerArray: number[] = [];
+  progress: {
+    correct: number;
+    wrong: number;
+    totalQ: number;
+    correctPer: number;
+    wrongPer: number;
+  }; // = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0};
+  firstSelection: number = -1; // first selected option by user for current question reset to -1 for new question
+  // questions: Question[] = [{ // final question array returned by api on the basis of user selection
   //   id: "1",
   //   questionType: "Permutations and combinations",
   //   difficulty: "Easy",
@@ -48,41 +68,65 @@ export class PracticeComponent implements OnInit {
   //   answer: 3
   // }];
   questions: any;
-  nextQuestionIndex: number = 0;
-  questionArrLen: number // = this.questions.length;
+  nextQuestionIndex = 0;
+  questionArrLen: number; // = this.questions.length;
   optionValidationArr: boolean[] = []; // stores either this option has been clicked by user or not
-  model = new PracticeCard("Aptitude",
+  model = new PracticeCard(
+    'Aptitude',
     this.categories[0].categoryDescription,
     this.difficulty[0].levelDescription,
-    'Next');
-    nextDataTgt: string = "#questionModalCenter";
-    
+    'Next'
+  );
+  nextDataTgt = '#questionModalCenter';
+  resultMsg: {
+    fullyCorrect: string;
+    partiallyCorrect: string;
+  } = {
+    fullyCorrect: 'Congratulations you have completed the set!',
+    partiallyCorrect:
+      'Would you like to try not attempted questions/wrongly answered questions once again!'
+  };
+  isAllQuestionModelVisible = false;
+  modalRef: BsModalRef;
   handleNextClick(template: TemplateRef<any>) {
     // TODO api call get questions array on the basis of selected
     // 1. category
     // 2. difficulty
-    console.log(this.model.categoryDescription + " " + this.model.levelDescription);
-    let params = new HttpParams()
-        .set("questionType", this.model.categoryDescription)
-        .set("difficulty", this.model.levelDescription);
-    this.httpClient.get("http://localhost:3000/questions/getQuestion",{params}).subscribe(data => {
-      if(isArray(data)) {
-        this.questions = data;
-        this.questionArrLen = this.questions.length;
-        this.progress = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0}
-        console.log("fetching questions from db" + this.questions);
-        this.closeModal();
-        if (this.questionArrLen > 0) {
-          this.openModal(template);
-        } else {
-          console.log("No questions available");
+    console.log(
+      this.model.categoryDescription + ' ' + this.model.levelDescription
+    );
+    const params = new HttpParams()
+      .set('questionType', this.model.categoryDescription)
+      .set('difficulty', this.model.levelDescription);
+    this.httpClient
+      .get('http://localhost:3000/questions/getQuestion', { params })
+      .subscribe(data => {
+        if (isArray(data)) {
+          this.questions = data;
+          this.questionArrLen = this.questions.length;
+          this.progress = {
+            correct: 0,
+            wrong: 0,
+            totalQ: this.questions.length,
+            correctPer: 0,
+            wrongPer: 0
+          };
+          console.log('fetching questions from db' + this.questions);
+          this.closeModal();
+          if (_.gt(this.questionArrLen, 0)) {
+            this.openModal(template);
+          } else {
+            console.log('No questions available');
+          }
         }
-      };
-    });
+      });
   }
-  answerArray: number[] = [];
-  getNextQuestion(template: TemplateRef<any>, resultTemplate: TemplateRef<any>) {  
-    if ((this.nextQuestionIndex + 1) < this.questionArrLen) {
+
+  getNextQuestion(
+    template: TemplateRef<any>,
+    resultTemplate: TemplateRef<any>
+  ) {
+    if (_.lt(_.sum(this.nextQuestionIndex, 1), this.questionArrLen)) {
       //  TODO go to next question
       this.closeModal();
       this.nextQuestionIndex++;
@@ -91,56 +135,48 @@ export class PracticeComponent implements OnInit {
       this.openModal(template);
     } else {
       // TODO for this selection all questions are over
-      // show final score 
+      // show final score
       // give option to load next set of questions
       this.nextQuestionIndex = 0;
       this.closeModal();
       this.openModal(resultTemplate);
     }
   }
-  progress: {
-    correct: number,
-    wrong: number,
-    totalQ: number,
-    correctPer: number,
-    wrongPer: number
-  } // = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0};
-  firstSelection: number = -1; // first selected option by user for current question reset to -1 for new question
+
   getPercentage(value, total) {
-    return value*100/total;
+    return _.round(_.divide(_.multiply(value, 100), total), 2);
   }
   handleOptionClick(indexOfOption) {
     this.optionValidationArr[indexOfOption] = true;
     // TODO if user is able to choose correct option on first click
     // Add one in correct
     // else Add one to wrong
-    if (this.firstSelection === -1) {
+    if (_.eq(this.firstSelection, -1)) {
       this.firstSelection = indexOfOption;
-      if (this.questions[this.nextQuestionIndex].answer === indexOfOption) {
+      if (_.eq(this.questions[this.nextQuestionIndex].answer, indexOfOption)) {
         this.progress.correct++;
-        this.progress.correctPer = this.getPercentage(this.progress.correct, this.progress.totalQ);
+        this.progress.correctPer = this.getPercentage(
+          this.progress.correct,
+          this.progress.totalQ
+        );
       } else {
         this.progress.wrong++;
-        this.progress.wrongPer = this.getPercentage(this.progress.wrong, this.progress.totalQ);
+        this.progress.wrongPer = this.getPercentage(
+          this.progress.wrong,
+          this.progress.totalQ
+        );
       }
       this.answerArray[this.nextQuestionIndex] = indexOfOption;
     }
   }
-  modalRef: BsModalRef;
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
   closeModal() {
     this.modalRef.hide();
   }
-  resultMsg: {
-    "fullyCorrect": string,
-    "partiallyCorrect": string
-  } = {
-    "fullyCorrect": "Congratulations you have completed the set!",
-    "partiallyCorrect": "Would you like to try not attempted questions/wrongly answered questions once again!"
-  }
-  isAllQuestionModelVisible = false;
+
   handleAllQuestionsClick(resultTemplate: TemplateRef<any>) {
     // TODO hide question modal
     // show all question model with status of all questions
@@ -158,22 +194,36 @@ export class PracticeComponent implements OnInit {
     //  initializing optionValidationArr with correct value
     //  if wrong or not answered just initialize the optionValidationArr arr
     this.optionValidationArr = [];
-    let correctAns: boolean = this.answerArray[indexOfClickedQuestion] && (this.answerArray[indexOfClickedQuestion] === this.questions[indexOfClickedQuestion].answer);
-    if (!this.answerArray[indexOfClickedQuestion] && this.answerArray[indexOfClickedQuestion] !== 0) { // undefind and not 0: 0 means first option
+    const correctAns: boolean =
+      this.answerArray[indexOfClickedQuestion] &&
+      _.eq(this.answerArray[indexOfClickedQuestion], this.questions[indexOfClickedQuestion].answer);
+    if (
+      !this.answerArray[indexOfClickedQuestion] &&
+      !_.eq(this.answerArray[indexOfClickedQuestion], 0)
+    ) {
+      // undefined and not 0: 0 means first option
       this.firstSelection = -1;
       // dont update anything
-    } else if (correctAns) { // correct answer
+    } else if (correctAns) {
+      // correct answer
       this.firstSelection = this.answerArray[indexOfClickedQuestion];
       this.optionValidationArr[this.answerArray[indexOfClickedQuestion]] = true;
-    } else { // wrong answer
+    } else {
+      // wrong answer
       // TODO reduce number of wrong ans by one
       this.progress.wrong--;
       this.answerArray[indexOfClickedQuestion] = undefined; // change to not answered
       this.firstSelection = -1;
-      this.progress.wrongPer = this.getPercentage(this.progress.wrong, this.progress.totalQ);
+      this.progress.wrongPer = this.getPercentage(
+        this.progress.wrong,
+        this.progress.totalQ
+      );
     }
   }
-  handleQuestionClick(template: TemplateRef<any>, indexOfClickedQuestion: number) {
+  handleQuestionClick(
+    template: TemplateRef<any>,
+    indexOfClickedQuestion: number
+  ) {
     this.closeModal();
     this.isAllQuestionModelVisible = false;
     this.nextQuestionIndex = indexOfClickedQuestion;
@@ -184,11 +234,14 @@ export class PracticeComponent implements OnInit {
     // reset all practice data
     this.optionValidationArr = [];
     this.answerArray = [];
-    this.progress = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0};
+    this.progress = {
+      correct: 0,
+      wrong: 0,
+      totalQ: this.questions.length,
+      correctPer: 0,
+      wrongPer: 0
+    };
     this.closeModal();
   }
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
-
