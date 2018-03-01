@@ -23,9 +23,7 @@ export class PracticeComponent implements OnInit {
   constructor(
     private modalService: BsModalService,
     private httpClient: HttpClient
-  ) {
-    // this.handleNextClick();
-  }
+  ) {}
   categories: Category[] = [
     { id: '1', categoryDescription: 'Problems on train' },
     { id: '2', categoryDescription: 'Permutations and combinations' }
