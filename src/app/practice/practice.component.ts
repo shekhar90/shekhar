@@ -54,7 +54,7 @@ export class PracticeComponent implements OnInit {
   model = new PracticeCard("Aptitude",
     this.categories[0].categoryDescription,
     this.difficulty[0].levelDescription,
-    "Next");
+    'Next');
     nextDataTgt: string = "#questionModalCenter";
     
   handleNextClick(template: TemplateRef<any>) {
@@ -65,7 +65,7 @@ export class PracticeComponent implements OnInit {
     let params = new HttpParams()
         .set("questionType", this.model.categoryDescription)
         .set("difficulty", this.model.levelDescription);
-    this.httpClient.get("http://localhost:3000/getquestion",{params}).subscribe(data => {
+    this.httpClient.get("http://localhost:3000/questions/getQuestion",{params}).subscribe(data => {
       if(isArray(data)) {
         this.questions = data;
         this.questionArrLen = this.questions.length;
@@ -104,7 +104,7 @@ export class PracticeComponent implements OnInit {
     totalQ: number,
     correctPer: number,
     wrongPer: number
-  } //= {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0};
+  } // = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0};
   firstSelection: number = -1; // first selected option by user for current question reset to -1 for new question
   getPercentage(value, total) {
     return value*100/total;
@@ -140,10 +140,10 @@ export class PracticeComponent implements OnInit {
     "fullyCorrect": "Congratulations you have completed the set!",
     "partiallyCorrect": "Would you like to try not attempted questions/wrongly answered questions once again!"
   }
-  isAllQuestionModelVisible: boolean = false;
+  isAllQuestionModelVisible = false;
   handleAllQuestionsClick(resultTemplate: TemplateRef<any>) {
     // TODO hide question modal
-    // show all question model with status of all questions 
+    // show all question model with status of all questions
     this.closeModal();
     this.openModal(resultTemplate);
     this.isAllQuestionModelVisible = true;
@@ -154,7 +154,7 @@ export class PracticeComponent implements OnInit {
     this.openModal(template);
   }
   resetOptionValidationArr(indexOfClickedQuestion: number) {
-    //  TODO if already selected option is correct then disable other options after 
+    //  TODO if already selected option is correct then disable other options after
     //  initializing optionValidationArr with correct value
     //  if wrong or not answered just initialize the optionValidationArr arr
     this.optionValidationArr = [];
@@ -171,7 +171,7 @@ export class PracticeComponent implements OnInit {
       this.answerArray[indexOfClickedQuestion] = undefined; // change to not answered
       this.firstSelection = -1;
       this.progress.wrongPer = this.getPercentage(this.progress.wrong, this.progress.totalQ);
-    } 
+    }
   }
   handleQuestionClick(template: TemplateRef<any>, indexOfClickedQuestion: number) {
     this.closeModal();
