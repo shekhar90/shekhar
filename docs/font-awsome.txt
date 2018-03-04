@@ -1,0 +1,23 @@
+<!-- Component -->
+<fa [name]=string      // name of fontawesome icon
+    [size]=number      // [1-5]
+    [flip]=string      // [horizontal|vertical]
+    [pull]=string      // [right|left]
+    [rotate]=number    // [90|180|270]
+    [border]=boolean   // [true|false]
+    [spin]=boolean     // [true|false]
+    [fw]=boolean       // [true|false]
+    [inverse]=boolean  // [true|false]
+    ></fa>
+ 
+<!-- Directive -->
+<i fa [name]=string      // name of fontawesome icon
+      [size]=number      // [1-5]
+      [flip]=string      // [horizontal|vertical]
+      [pull]=string      // [right|left]
+      [rotate]=number    // [90|180|270]
+      [border]=boolean   // [true|false]
+      [spin]=boolean     // [true|false]
+      [fw]=boolean       // [true|false]
+      [inverse]=boolean  // [true|false]
+      ></fa>

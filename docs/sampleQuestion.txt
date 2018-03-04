@@ -1,0 +1,23 @@
+questions: Question[] = [{ 
+    id: "1",
+    questionType: "Permutations and combinations",
+    difficulty: "Easy",
+    question: "<sup>6</sup>P<sub>4</sub> is equal to",
+    options: ["18",
+      "12",
+      "6",
+      "0"],
+    answer: 2
+  }, {
+    id: "2",
+    questionType: "Permutations and combinations",
+    difficulty: "Easy",
+    question: "An arrangement of finite numbers of objects taken some or all at a time is called their",
+    options: [
+      "A.P",
+      "Combination",
+      "Sequence",
+      "Permutation"
+    ],
+    answer: 3
+  }];

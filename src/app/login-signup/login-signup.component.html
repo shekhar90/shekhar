@@ -1,0 +1,6 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <app-login (onSignupClick)="onSignupClick($event)" *ngIf="login"></app-login>
+        <app-signup (onSigninClick)="onSigninClick($event)" *ngIf="!login"></app-signup>
+    </div>
+</div>

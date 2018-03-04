@@ -1,0 +1,42 @@
+<div class="container mt-5 mb-5 border">
+    <div class="">
+        <h3 class="text-center mt-2">Login</h3>
+        <p class="text-secondary text-center">Dude if you will be logged in we can show you your progress.</p>
+    </div>
+    <form method="post" class="register" novalidate="novalidate">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputEmail">Username or Email<span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-addon text-success"><fa [name]="'user'" [size]="1"></fa></span>
+                    <input type="text" class="form-control" id="inputEmail" placeholder="Username or email" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputPassword">Password <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-addon text-danger"><fa [name]="'lock'" [size]="1"></fa></span>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12 text-center">
+                <button type="button" class="btn btn-success"><fa [name]="'sign-in'" [size]="1"></fa>Login</button>
+                <hr class="divider">
+            </div>
+        </div>
+    </form>
+    <p class="text-secondary text-center">Or sign up with:</p>
+    <p class="text-center">
+        <button class="btn btn-outline-success"><fa [name]="'facebook-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success"><fa [name]="'google-plus-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success"><fa [name]="'twitter-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success"><fa [name]="'linkedin-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success"><fa [name]="'github-square'" [size]="2"></fa></button>
+    </p>
+    <p class="text-secondary text-center small">By clicking "Sign up" you agree to our <a href="#">Terms of Service</a>.</p>
+    <p class="text-secondary text-center small">New to fl.org? <a (click)="handleSignupClick()" class="text-primary">Sign up</a></p>
+</div>

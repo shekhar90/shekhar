@@ -42,29 +42,6 @@ export class PracticeComponent implements OnInit {
     wrongPer: number;
   }; // = {correct: 0, wrong: 0, totalQ: this.questions.length, correctPer: 0, wrongPer: 0};
   firstSelection: number = -1; // first selected option by user for current question reset to -1 for new question
-  // questions: Question[] = [{ // final question array returned by api on the basis of user selection
-  //   id: "1",
-  //   questionType: "Permutations and combinations",
-  //   difficulty: "Easy",
-  //   question: "<sup>6</sup>P<sub>4</sub> is equal to",
-  //   options: ["18",
-  //     "12",
-  //     "6",
-  //     "0"],
-  //   answer: 2
-  // }, {
-  //   id: "2",
-  //   questionType: "Permutations and combinations",
-  //   difficulty: "Easy",
-  //   question: "An arrangement of finite numbers of objects taken some or all at a time is called their",
-  //   options: [
-  //     "A.P",
-  //     "Combination",
-  //     "Sequence",
-  //     "Permutation"
-  //   ],
-  //   answer: 3
-  // }];
   questions: any;
   nextQuestionIndex = 0;
   questionArrLen: number; // = this.questions.length;
