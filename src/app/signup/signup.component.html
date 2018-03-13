@@ -7,11 +7,11 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputFname">First Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="inputFname" placeholder="First Name" required>
+                <input [(ngModel)]="model.firstName" name="firstName" type="text" class="form-control" id="inputFname" placeholder="First Name" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="inputLname">Last Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="inputLname" placeholder="Last Name" required>
+                <input [(ngModel)]="model.lastName" name="lastName" type="text" class="form-control" id="inputLname" placeholder="Last Name" required>
             </div>
         </div>
         <div class="form-row">
@@ -19,7 +19,7 @@
                 <label for="inputEmail">Email address <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon"><fa [name]="'envelope'" [size]="1"></fa></span>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email address" required>
+                    <input [(ngModel)]="model.email" name="email" type="email" class="form-control" id="inputEmail" placeholder="Email address" required>
                 </div>
             </div>
         </div>
@@ -28,7 +28,16 @@
                 <label for="inputPassword">Password <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon"><fa [name]="'lock'" [size]="1"></fa></span>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                    <input [(ngModel)]="model.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputPassword">Confirm password <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-addon"><fa [name]="'lock'" [size]="1"></fa></span>
+                    <input [(ngModel)]="model.confirmPassword" name="confirmPassword" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
                 </div>
             </div>
         </div>
