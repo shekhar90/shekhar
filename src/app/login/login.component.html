@@ -9,7 +9,7 @@
                 <label for="inputEmail">Username or Email<span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon text-success"><fa [name]="'user'" [size]="1"></fa></span>
-                    <input type="text" class="form-control" id="inputEmail" placeholder="Username or email" required>
+                    <input [(ngModel)]="model.email" name="email" type="text" class="form-control" id="inputEmail" placeholder="Username or email" required>
                 </div>
             </div>
         </div>
@@ -18,13 +18,13 @@
                 <label for="inputPassword">Password <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon text-danger"><fa [name]="'lock'" [size]="1"></fa></span>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                    <input [(ngModel)]="model.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-12 text-center">
-                <button type="button" class="btn btn-success"><fa [name]="'sign-in'" [size]="1"></fa>Login</button>
+                <button (click)="handleLoginClick()" type="button" class="btn btn-success"><fa [name]="'sign-in'" [size]="1"></fa>Login</button>
                 <hr class="divider">
             </div>
         </div>
