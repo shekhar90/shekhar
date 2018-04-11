@@ -3,7 +3,7 @@
         <h3 class="text-center mt-2">Sign up</h3>
         <p class="text-secondary text-center">Signup to get started with a brand new learning experience.</p>
     </div>
-    <form method="post" class="register" novalidate="novalidate">
+    <form method="post" class="register" #signupForm="ngForm" novalidate="novalidate">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputFname">First Name <span class="text-danger">*</span></label>
@@ -37,13 +37,13 @@
                 <label for="inputPassword">Confirm password <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon"><fa [name]="'lock'" [size]="1"></fa></span>
-                    <input [(ngModel)]="model.confirmPassword" name="confirmPassword" type="password" class="form-control" id="inputConfirmPassword" placeholder="Password" required>
+                    <input [(ngModel)]="model.confirmPassword" name="confirmPassword" type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required>
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-12 text-center">
-                <button type="button" class="btn btn-success" (click)="handleSignupClick()">Sign Up</button>
+                <button type="button" class="btn btn-success" [disabled]="!signupForm.valid" (click)="signup(signupForm)">Sign Up</button>
                 <hr class="divider">
             </div>
         </div>
@@ -57,5 +57,5 @@
         <button class="btn btn-outline-success"><fa [name]="'github-square'" [size]="2"></fa></button>
     </p>
     <p class="text-secondary text-center small">By clicking "Sign up" you agree to our <a href="#">Terms of Service</a>.</p>
-    <p class="text-secondary text-center small">Already have an account? <a (click)="handleSigninClick()" class="text-primary">Sign in</a></p>
+    <p class="text-secondary text-center small">Already have an account? <a (click)="handleSigninClick(signupForm)" class="text-primary">Sign in</a></p>
 </div>

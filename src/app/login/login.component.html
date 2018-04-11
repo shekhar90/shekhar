@@ -3,7 +3,7 @@
         <h3 class="text-center mt-2">Login</h3>
         <p class="text-secondary text-center">Dude if you will be logged in we can show you your progress.</p>
     </div>
-    <form method="post" class="register" novalidate="novalidate">
+    <form method="post" class="register" #loginForm="ngForm" novalidate="novalidate">
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="inputEmail">Username or Email<span class="text-danger">*</span></label>
@@ -24,19 +24,24 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-12 text-center">
-                <button (click)="handleLoginClick()" type="button" class="btn btn-success"><fa [name]="'sign-in'" [size]="1"></fa>Login</button>
+                <button (click)="login(loginForm)" type="button" class="btn btn-success" [disabled]="!loginForm.valid"><fa [name]="'sign-in'" [size]="1"></fa>Login</button>
                 <hr class="divider">
             </div>
         </div>
     </form>
     <p class="text-secondary text-center">Or sign up with:</p>
     <p class="text-center">
-        <button class="btn btn-outline-success"><fa [name]="'facebook-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'google-plus-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'twitter-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'linkedin-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'github-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success" (click)="loginWith('facebook')"><fa [name]="'facebook-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success" (click)="loginWith('google')"><fa [name]="'google-plus-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success" (click)="loginWith('twitter')"><fa [name]="'twitter-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success" (click)="loginWith('linkedin')"><fa [name]="'linkedin-square'" [size]="2"></fa></button>
+        <button class="btn btn-outline-success" (click)="loginWith('github')"><fa [name]="'github-square'" [size]="2"></fa></button>
     </p>
     <p class="text-secondary text-center small">By clicking "Sign up" you agree to our <a href="#">Terms of Service</a>.</p>
     <p class="text-secondary text-center small">New to fl.org? <a (click)="handleSignupClick()" class="text-primary">Sign up</a></p>
+    <!-- <div *ngIf="afService.user | async as user">
+        <h3>Hello {{user.displayName}}</h3>
+        <img [src]="user.photoURL">
+        <button (click)="afService.logout()">Logout</button>
+    </div> -->
 </div>
