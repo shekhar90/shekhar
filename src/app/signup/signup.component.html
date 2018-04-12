@@ -7,11 +7,21 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputFname">First Name <span class="text-danger">*</span></label>
-                <input [(ngModel)]="model.firstName" name="firstName" type="text" class="form-control" id="inputFname" placeholder="First Name" required>
+                <input #firstName="ngModel" [(ngModel)]="model.firstName" name="firstName" type="text" class="form-control" id="inputFname" placeholder="First Name" required>
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="firstName.errors.required">
+                        First name is required.
+                    </div>
+                </div>
             </div>
             <div class="form-group col-md-6">
                 <label for="inputLname">Last Name <span class="text-danger">*</span></label>
-                <input [(ngModel)]="model.lastName" name="lastName" type="text" class="form-control" id="inputLname" placeholder="Last Name" required>
+                <input #lastName="ngModel" [(ngModel)]="model.lastName" name="lastName" type="text" class="form-control" id="inputLname" placeholder="Last Name" required>
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="lastName.errors.required">
+                        Last name is required.
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-row">
@@ -19,7 +29,15 @@
                 <label for="inputEmail">Email address <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon"><fa [name]="'envelope'" [size]="1"></fa></span>
-                    <input [(ngModel)]="model.email" name="email" type="email" class="form-control" id="inputEmail" placeholder="Email address" required>
+                    <input #email="ngModel" [(ngModel)]="model.email" name="email" type="email" class="form-control" id="inputEmail" placeholder="Email address" [pattern]="utilityService.pattern.email" required>
+                </div>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="email.errors.pattern && !email.errors.required">
+                        Wrong email format.
+                    </div>
+                    <div *ngIf="email.errors.required">
+                        Email is required.
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,19 +46,32 @@
                 <label for="inputPassword">Password <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon"><fa [name]="'lock'" [size]="1"></fa></span>
-                    <input [(ngModel)]="model.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                    <input #password="ngModel" [(ngModel)]="model.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" [pattern]="utilityService.pattern.password" required>
+                </div>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="password.errors.pattern && !password.errors.required">
+                        Wrong password format minimum 6 and max 14 characters.
+                    </div>
+                    <div *ngIf="password.errors.required">
+                        Password is required.
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="form-row">
+        <!-- <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="inputPassword">Confirm password <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <span class="input-group-addon"><fa [name]="'lock'" [size]="1"></fa></span>
-                    <input [(ngModel)]="model.confirmPassword" name="confirmPassword" type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required>
+                    <input validate [disabled]="password.invalid" #confirmPassword="ngModel" [(ngModel)]="model.confirmPassword" name="confirmPassword" type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required>
+                </div>
+                <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="confirmPassword.errors.required">
+                        confirmPassword is required.
+                    </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="form-row">
             <div class="form-group col-md-12 text-center">
                 <button type="button" class="btn btn-success" [disabled]="!signupForm.valid" (click)="signup(signupForm)">Sign Up</button>
@@ -49,13 +80,7 @@
         </div>
     </form>
     <p class="text-secondary text-center">Or sign up with:</p>
-    <p class="text-center">
-        <button class="btn btn-outline-success"><fa [name]="'facebook-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'google-plus-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'twitter-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'linkedin-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success"><fa [name]="'github-square'" [size]="2"></fa></button>
-    </p>
+    <app-auth></app-auth>
     <p class="text-secondary text-center small">By clicking "Sign up" you agree to our <a href="#">Terms of Service</a>.</p>
     <p class="text-secondary text-center small">Already have an account? <a (click)="handleSigninClick(signupForm)" class="text-primary">Sign in</a></p>
 </div>

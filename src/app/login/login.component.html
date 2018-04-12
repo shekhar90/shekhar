@@ -1,24 +1,45 @@
 <div class="container mt-5 mb-5 border">
     <div class="">
         <h3 class="text-center mt-2">Login</h3>
-        <p class="text-secondary text-center">Dude if you will be logged in we can show you your progress.</p>
+        <p class="text-secondary text-center">
+            <!-- Dude if you will be logged in we can show you your progress. -->
+        </p>
+    </div>
+    <div *ngIf="isLoginError" class="alert alert-danger mt-2">
+        Invalid login or password. Please try again.
     </div>
     <form method="post" class="register" #loginForm="ngForm" novalidate="novalidate">
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label for="inputEmail">Username or Email<span class="text-danger">*</span></label>
+                <label for="inputEmail">Email<span class="text-danger">*</span></label>
                 <div class="input-group">
-                    <span class="input-group-addon text-success"><fa [name]="'user'" [size]="1"></fa></span>
-                    <input [(ngModel)]="model.email" name="email" type="text" class="form-control" id="inputEmail" placeholder="Username or email" required>
+                    <span class="input-group-addon text-secondary" [class]=""><fa [name]="'user'" [size]="1"></fa></span>
+                    <input #email="ngModel" [(ngModel)]="model.email" name="email" type="text" class="form-control" id="inputEmail" placeholder="Email" [pattern]="utilityService.pattern.email" required>
+                </div>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="email.errors.pattern && !email.errors.required">
+                        Wrong email format.
+                    </div>
+                    <div *ngIf="email.errors.required">
+                        Email is required.
+                    </div>
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label for="inputPassword">Password <span class="text-danger">*</span></label>
+                <label for="inputPassword">Password<span class="text-danger">*</span></label>
                 <div class="input-group">
-                    <span class="input-group-addon text-danger"><fa [name]="'lock'" [size]="1"></fa></span>
-                    <input [(ngModel)]="model.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                    <span class="input-group-addon text-secondary"><fa [name]="'lock'" [size]="1"></fa></span>
+                    <input #password="ngModel" [(ngModel)]="model.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" [pattern]="utilityService.pattern.password" required>
+                </div>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="password.errors.pattern && !password.errors.required">
+                        Wrong password format minimum 6 and max 14 characters.
+                    </div>
+                    <div *ngIf="password.errors.required">
+                        Password is required.
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,13 +51,7 @@
         </div>
     </form>
     <p class="text-secondary text-center">Or sign up with:</p>
-    <p class="text-center">
-        <button class="btn btn-outline-success" (click)="loginWith('facebook')"><fa [name]="'facebook-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success" (click)="loginWith('google')"><fa [name]="'google-plus-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success" (click)="loginWith('twitter')"><fa [name]="'twitter-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success" (click)="loginWith('linkedin')"><fa [name]="'linkedin-square'" [size]="2"></fa></button>
-        <button class="btn btn-outline-success" (click)="loginWith('github')"><fa [name]="'github-square'" [size]="2"></fa></button>
-    </p>
+    <app-auth></app-auth>
     <p class="text-secondary text-center small">By clicking "Sign up" you agree to our <a href="#">Terms of Service</a>.</p>
     <p class="text-secondary text-center small">New to fl.org? <a (click)="handleSignupClick()" class="text-primary">Sign up</a></p>
     <!-- <div *ngIf="afService.user | async as user">

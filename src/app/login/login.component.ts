@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { UserLogin } from '../user-login';
 import { AuthenticationService } from '../shared/authentication.service';
 import { RoutingService } from '../shared/routing.service';
+import { UtilityService } from '../shared/utility.service';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,14 @@ import { RoutingService } from '../shared/routing.service';
 })
 export class LoginComponent implements OnInit {
   @Output() onSignupClick = new EventEmitter<boolean>();
+  isLoginError = false;
   constructor(
     private httpClient: HttpClient,
     private router: Router,
     public afService: AuthenticationService,
     private toastr: ToastrService,
-    private routingService: RoutingService
+    private routingService: RoutingService,
+    private utilityService: UtilityService
   ) { }
   model = new UserLogin();
   ngOnInit() {
@@ -43,22 +46,24 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm) {
     this.afService.loginWithEmailPassword(loginForm.value.email, loginForm.value.password)
     .then(result => {
+      this.isLoginError = false;
       this.resetForm(loginForm);
-      this.toastr.success('Logged in successfully', 'User');
       this.routingService.goto('/practice');
+      this.toastr.success('Logged in successfully', 'User');
     }).catch(error => {
+      this.isLoginError = true;
       this.toastr.error('Error in logging in', error.message);
     });
   }
-  loginWith(providerName: string) {
-    this.afService.authenticateWith(providerName)
-    .then(result => {
-      this.toastr.success('Logged in successfully', 'User');
-      this.routingService.goto('/practice');
-    }).catch(error => {
-      this.toastr.error('Error in logging in', error.message);
-    });
-  }
+  // loginWith(providerName: string) {
+  //   this.afService.authenticateWith(providerName)
+  //   .then(result => {
+  //     this.toastr.success('Logged in successfully', 'User');
+  //     this.routingService.goto('/practice');
+  //   }).catch(error => {
+  //     this.toastr.error('Error in logging in', error.message);
+  //   });
+  // }
   resetForm(loginForm?: NgForm) {
     if (loginForm != null) {
       loginForm.reset();

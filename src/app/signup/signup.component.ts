@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { User } from '../user';
 import { AuthenticationService } from '../shared/authentication.service';
+import { UtilityService } from '../shared/utility.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,11 @@ import { AuthenticationService } from '../shared/authentication.service';
 })
 export class SignupComponent implements OnInit {
   @Output() onSigninClick = new EventEmitter<boolean>();
-  constructor(private httpClient: HttpClient, public afService: AuthenticationService, private toastr: ToastrService) { }
+  constructor(
+    private httpClient: HttpClient,
+    public afService: AuthenticationService,
+    private toastr: ToastrService,
+    private utilityService: UtilityService) { }
   model = new User();
   ngOnInit() {
   }

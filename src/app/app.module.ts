@@ -22,7 +22,10 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthenticationService } from './shared/authentication.service';
 import { RoutingService } from './shared/routing.service';
+import { UtilityService } from './shared/utility.service';
 import { environment } from '../environments/environment';
+import { FooterComponent } from './footer/footer.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { environment } from '../environments/environment';
     HomeComponent,
     LoginSignupComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    FooterComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,7 @@ import { environment } from '../environments/environment';
     AngularFireAuthModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthenticationService, RoutingService],
+  providers: [AuthenticationService, RoutingService, UtilityService],
   bootstrap: [AppComponent]
 
 })
