@@ -5,14 +5,19 @@ import * as firebase from 'firebase/app';
 import { ToastrService } from 'ngx-toastr';
 import { reject } from 'q';
 import { RoutingService } from '../shared/routing.service';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireList } from 'angularfire2/database';
+import { User } from '../shared/user';
 
 @Injectable()
 export class AuthenticationService {
   user: Observable<firebase.User>;
+  userList: AngularFireList<any>;
   constructor(
     public afAuth: AngularFireAuth,
     private toastr: ToastrService,
-    private routingService: RoutingService
+    private routingService: RoutingService,
+    private firebase: AngularFireDatabase
   ) {
     this.user = afAuth.authState;
   }
@@ -84,29 +89,23 @@ export class AuthenticationService {
       });
     });
   }
-  // employeeList: AngularFireList<any>;
-  // selectedEmployee: Employee = new Employee();
-  // constructor(private firebase: AngularFireDatabase) { }
-  // getData() {
-  //   this.employeeList = this.firebase.list('employees');
-  //   return this.employeeList;
-  // }
-  // insertEmployee(employee: Employee) {
-  //   this.employeeList.push({
-  //     name: employee.name,
-  //     position: employee.position,
-  //     office: employee.office,
-  //     salary: employee.salary
-  //   });
-  // }
-  // updateEmployee(employee: Employee) {
-  //   this.employeeList.update(employee.$key, {
-  //     name: employee.name,
-  //     position: employee.position,
-  //     office: employee.office,
-  //     salary: employee.salary
-  //   });
-  // }
+
+  getData() {
+    this.userList = this.firebase.list('user');
+    return this.userList;
+  }
+  insertUser(user: User) {
+    this.userList.push({
+      firstName: user.firstName,
+      lastName: user.lastName
+    });
+  }
+  updateUser(user: User) {
+    this.userList.update(user.$key, {
+      firstName: user.firstName,
+      lastName: user.lastName
+    });
+  }
   // deleteEmployee($key: string) {
   //   this.employeeList.remove($key);
   // }

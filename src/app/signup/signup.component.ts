@@ -18,7 +18,9 @@ export class SignupComponent implements OnInit {
     private httpClient: HttpClient,
     public afService: AuthenticationService,
     private toastr: ToastrService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService) {
+      afService.getData();
+    }
   model = new User();
   ngOnInit() {
   }
@@ -41,6 +43,7 @@ export class SignupComponent implements OnInit {
   signup(signupForm: NgForm) {
     this.afService.signupWithEmailPassword(signupForm.value.email, signupForm.value.password)
     .then(result => {
+      this.afService.insertUser(signupForm.value);
       signupForm.resetForm();
       this.toastr.success('Signed up successfully', 'User');
       this.handleSigninClick();
