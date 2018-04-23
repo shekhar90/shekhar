@@ -101,7 +101,7 @@ export class PracticeComponent implements OnInit {
     template: TemplateRef<any>,
     resultTemplate: TemplateRef<any>
   ) {
-    if (_.lt(_.sum(this.nextQuestionIndex, 1), this.questionArrLen)) {
+    if (_.lt(_.sum([this.nextQuestionIndex, 1]), this.questionArrLen)) {
       //  TODO go to next question
       this.closeModal();
       this.nextQuestionIndex++;

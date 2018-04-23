@@ -5,7 +5,7 @@
     },
     "apps": [{
         "root": "src",
-        "outDir": "dist",
+        "outDir": "../dist/public",
         "assets": [
             "assets",
             "favicon.ico"
@@ -20,7 +20,6 @@
         "styles": [
             "../node_modules/bootstrap/dist/css/bootstrap.min.css",
             "../node_modules/font-awesome/css/font-awesome.min.css",
-            "../node_modules/ngx-toastr/toastr.css",
             "styles.css"
         ],
         "scripts": [

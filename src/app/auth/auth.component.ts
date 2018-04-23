@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthenticationService } from '../shared/authentication.service';
+// import { AuthenticationService } from '../shared/authentication.service';
 import { RoutingService } from '../shared/routing.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth',
@@ -12,20 +12,20 @@ import { ToastrService } from 'ngx-toastr';
 export class AuthComponent implements OnInit {
 
   constructor(
-    public afService: AuthenticationService,
+    // public afService: AuthenticationService,
     private routingService: RoutingService,
-    private toastr: ToastrService
+    // private toastr: ToastrService
   ) { }
 
   ngOnInit() {
   }
-  loginWith(providerName: string) {
-    this.afService.authenticateWith(providerName)
-    .then(result => {
-      this.routingService.goto('/practice');
-      this.toastr.success('Logged in successfully', 'User');
-    }).catch(error => {
-      this.toastr.error('Error in logging in', error.message);
-    });
-  }
+//   loginWith(providerName: string) {
+//     this.afService.authenticateWith(providerName)
+//     .then(result => {
+//       this.routingService.goto('/practice');
+//       this.toastr.success('Logged in successfully', 'User');
+//     }).catch(error => {
+//       this.toastr.error('Error in logging in', error.message);
+//     });
+//   }
 }

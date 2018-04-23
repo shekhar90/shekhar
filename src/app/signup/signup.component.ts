@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 
 import { User } from '../user';
-import { AuthenticationService } from '../shared/authentication.service';
+// import { AuthenticationService } from '../shared/authentication.service';
 import { UtilityService } from '../shared/utility.service';
 
 @Component({
@@ -16,10 +16,10 @@ export class SignupComponent implements OnInit {
   @Output() onSigninClick = new EventEmitter<boolean>();
   constructor(
     private httpClient: HttpClient,
-    public afService: AuthenticationService,
-    private toastr: ToastrService,
+    // public afService: AuthenticationService,
+    // private toastr: ToastrService,
     private utilityService: UtilityService) {
-      afService.getData();
+      // afService.getData();
     }
   model = new User();
   ngOnInit() {
@@ -40,16 +40,16 @@ export class SignupComponent implements OnInit {
   //     }
   //   });
   // }
-  signup(signupForm: NgForm) {
-    this.afService.signupWithEmailPassword(signupForm.value.email, signupForm.value.password)
-    .then(result => {
-      this.afService.insertUser(signupForm.value);
-      signupForm.resetForm();
-      this.toastr.success('Signed up successfully', 'User');
-      this.handleSigninClick();
-    }).catch(error => {
-      this.toastr.error('Error in signup', error.message);
-      // console.log(error.code, error.message);
-    });
-  }
+  // signup(signupForm: NgForm) {
+  //   this.afService.signupWithEmailPassword(signupForm.value.email, signupForm.value.password)
+  //   .then(result => {
+  //     this.afService.insertUser(signupForm.value);
+  //     signupForm.resetForm();
+  //     this.toastr.success('Signed up successfully', 'User');
+  //     this.handleSigninClick();
+  //   }).catch(error => {
+  //     this.toastr.error('Error in signup', error.message);
+  //     // console.log(error.code, error.message);
+  //   });
+  // }
 }
