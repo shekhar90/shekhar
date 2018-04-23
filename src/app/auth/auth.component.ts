@@ -20,12 +20,14 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
   }
   loginWith(providerName: string) {
-    this.afService.authenticateWith(providerName)
-    .then(result => {
-      this.routingService.goto('/practice');
-      this.toastr.success('Logged in successfully', 'User');
-    }).catch(error => {
-      this.toastr.error('Error in logging in', error.message);
-    });
+    if (!this.afService.user) {
+      this.afService.authenticateWith(providerName)
+      .then(result => {
+        // this.routingService.goto('/practice');
+        this.toastr.success('Logged in successfully', 'User');
+      }).catch(error => {
+        this.toastr.error('Error in logging in', error.message);
+      });
+    }
   }
 }

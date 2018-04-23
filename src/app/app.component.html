@@ -33,10 +33,13 @@
             <li class="nav-item">
                 <a class="nav-link active" href="#">Your score: 500 (Ranking 1)</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#" routerLink="/login">Login</a><a class="nav-link" href="#" routerLink="/signup">Signup</a>
+            <li *ngIf="!afService.user" class="nav-item active">
+                <a class="nav-link" href="#" routerLink="/login">Login</a>
             </li>
-            <li class="nav-item">
+            <li *ngIf="!afService.user" class="nav-item active">
+                <a class="nav-link" href="#" routerLink="/signup">Signup</a>
+            </li>
+            <li *ngIf="afService.user" class="nav-item">
                 <a class="nav-link" href="#" (click)="logout()">Logout</a>
             </li>
         </ul>

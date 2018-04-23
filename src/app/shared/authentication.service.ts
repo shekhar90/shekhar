@@ -9,10 +9,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
 import { User } from '../shared/user';
 
+
 @Injectable()
 export class AuthenticationService {
   user: Observable<firebase.User>;
   userList: AngularFireList<any>;
+  authenticated = false;
   constructor(
     public afAuth: AngularFireAuth,
     private toastr: ToastrService,
@@ -46,7 +48,7 @@ export class AuthenticationService {
   }
   authenticateWith(providerName) {
     return new Promise((resolve, reject) => {
-      const provider = this.getProvider(providerName);
+      let provider = this.getProvider(providerName);
       this.afAuth.auth.signInWithRedirect(provider)
       .catch(error => {
         reject(error);
@@ -54,6 +56,10 @@ export class AuthenticationService {
       .then(result => {
         resolve(result);
       });
+      this.afAuth.auth.getRedirectResult().then(result => {
+        this.authenticated = true;
+        this.routingService.goto('/practice');
+      })
     });
   }
   loginWithEmailPassword(email, password) {
@@ -79,13 +85,15 @@ export class AuthenticationService {
     });
   }
   logout() {
+    let authContext = this;
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signOut()
       .catch(error => {
         reject(error);
       })
-      .then(result => {
-        resolve(result);
+      .then(() => {
+        authContext.authenticated = false;
+        resolve();
       });
     });
   }
