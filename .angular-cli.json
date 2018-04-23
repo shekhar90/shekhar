@@ -5,7 +5,7 @@
     },
     "apps": [{
         "root": "src",
-        "outDir": "../dist/public",
+        "outDir": "../shekhar-backend/dist/public",
         "assets": [
             "assets",
             "favicon.ico"
