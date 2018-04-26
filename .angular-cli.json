@@ -5,7 +5,7 @@
     },
     "apps": [{
         "root": "src",
-        "outDir": "../shekhar-backend/dist/public",
+        "outDir": "../meanauthapp/public",
         "assets": [
             "assets",
             "favicon.ico"
