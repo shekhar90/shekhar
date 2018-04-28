@@ -57,8 +57,6 @@ export class SignupComponent implements OnInit {
       this.handleSigninClick();
     } else {
       this.utilityService.alertUtil.add('danger', 'Error in signing up. Please try again.', 5000);
-      // this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-      // this.router.navigate(['/register']);
     }
   });
   }
