@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 
 import { UserLogin } from '../user-login';
 // import { AuthenticationService } from '../shared/authentication.service';
+import { AuthService } from '../shared/auth.service';
 import { RoutingService } from '../shared/routing.service';
 import { UtilityService } from '../shared/utility.service';
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     // public afService: AuthenticationService,
+    private authService: AuthService,
     // private toastr: ToastrService,
     private routingService: RoutingService,
     private utilityService: UtilityService
@@ -30,6 +32,28 @@ export class LoginComponent implements OnInit {
   }
   handleSignupClick() {
     this.onSignupClick.emit();
+  }
+  onLoginSubmit(loginForm: NgForm) {
+    const user = {
+      email: this.model.email,
+      password: this.model.password
+    };
+
+    this.authService.authenticateUser(user).subscribe(data => {
+        if (data.success) {
+          console.log(data);
+          this.isLoginError = false;
+          this.resetForm(loginForm);
+          this.authService.storeUserData(data.token, data.user);
+          this.routingService.goto('/practice');
+          // this.flashMessage.show('You are now logged in', {cssClass: 'alert-success', timeout: 5000});
+          // this.router.navigate(['dashboard']);
+        } else {
+          console.log('error');
+          // this.flashMessage.show(data.msg, {cssClass: 'alert-danger', timeout: 5000});
+          // this.router.navigate(['login']);
+        }
+    });
   }
   // handleLoginClick() { // post form data to backend
   //   this.httpClient.post('http://localhost:3000/login', this.model)
