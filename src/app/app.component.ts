@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 // import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+import { AlertComponent } from './utility-component/alert/alert.component';
 // import { AuthenticationService } from './shared/authentication.service';
 import { RoutingService } from './shared/routing.service';
 

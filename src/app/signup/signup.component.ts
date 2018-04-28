@@ -52,13 +52,11 @@ export class SignupComponent implements OnInit {
     // Register user
     this.authService.registerUser(this.model).subscribe(data => {
     if (data.success) {
-      console.log(data);
+      this.utilityService.alertUtil.add('success', 'Successfully signed up. Please login.', 5000);
       signupForm.resetForm();
       this.handleSigninClick();
-      // this.flashMessage.show('You are now registered and can now login', {cssClass: 'alert-success', timeout: 3000});
-      // this.router.navigate(['/login']);
     } else {
-      console.log('error');
+      this.utilityService.alertUtil.add('danger', 'Error in signing up. Please try again.', 5000);
       // this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
       // this.router.navigate(['/register']);
     }

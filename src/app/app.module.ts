@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AlertModule } from 'ngx-bootstrap/alert';
 // import { AngularFireModule } from 'angularfire2';
 // import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 // import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -29,6 +30,8 @@ import { UtilityService } from './shared/utility.service';
 import { environment } from '../environments/environment';
 import { FooterComponent } from './footer/footer.component';
 import { AuthComponent } from './auth/auth.component';
+import { AlertComponent } from './utility-component/alert/alert.component';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { AuthComponent } from './auth/auth.component';
     LoginComponent,
     SignupComponent,
     FooterComponent,
-    AuthComponent
+    AuthComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,7 @@ import { AuthComponent } from './auth/auth.component';
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
     MDBBootstrapModule.forRoot(),
+    AlertModule.forRoot(),
     // ToastrModule.forRoot(),
     // AngularFireModule.initializeApp(environment.firebase),
     // AngularFireDatabaseModule,

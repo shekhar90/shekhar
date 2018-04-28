@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 // import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 
+// import { AlertComponent } from '../utility-component/alert/alert.component';
 import { UserLogin } from '../user-login';
 // import { AuthenticationService } from '../shared/authentication.service';
 import { AuthService } from '../shared/auth.service';
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
+    // private alertComponent: AlertComponent,
     // public afService: AuthenticationService,
     private authService: AuthService,
     // private toastr: ToastrService,
@@ -41,17 +43,14 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(user).subscribe(data => {
         if (data.success) {
-          console.log(data);
+          // console.log(data);
+          this.utilityService.alertUtil.add('success', 'Successfully logged in.', 5000);
           this.isLoginError = false;
           this.resetForm(loginForm);
           this.authService.storeUserData(data.token, data.user);
           this.routingService.goto('/practice');
-          // this.flashMessage.show('You are now logged in', {cssClass: 'alert-success', timeout: 5000});
-          // this.router.navigate(['dashboard']);
         } else {
-          console.log('error');
-          // this.flashMessage.show(data.msg, {cssClass: 'alert-danger', timeout: 5000});
-          // this.router.navigate(['login']);
+          this.utilityService.alertUtil.add('danger', 'Error in logging in please try again.', 5000);
         }
     });
   }
