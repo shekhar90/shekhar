@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 
 import { User } from '../user';
 // import { AuthenticationService } from '../shared/authentication.service';
+import { AuthService } from '../shared/auth.service';
 import { UtilityService } from '../shared/utility.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     // public afService: AuthenticationService,
+    private authService: AuthService,
     // private toastr: ToastrService,
     private utilityService: UtilityService) {
       // afService.getData();
@@ -26,6 +28,37 @@ export class SignupComponent implements OnInit {
   }
   handleSigninClick() { // only for routing to signin page
     this.onSigninClick.emit();
+  }
+  onRegisterSubmit(signupForm: NgForm) {
+    // const user = {
+    //   name: this.name,
+    //   email: this.email,
+    //   username: this.username,
+    //   password: this.password
+    // }
+
+    // // Required Fields
+    // if(!this.validateService.validateRegister(user)) {
+    //   this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
+    //   return false;
+    // }
+
+    // // Validate Email
+    // if(!this.validateService.validateEmail(user.email)) {
+    // this.flashMessage.show('Please use a valid email', {cssClass: 'alert-danger', timeout: 3000});
+    //   return false;
+    // }
+
+    // Register user
+    this.authService.registerUser(this.model).subscribe(data => {
+    if (data.success) {
+      this.utilityService.alertUtil.add('success', 'Successfully signed up. Please login.', 5000);
+      signupForm.resetForm();
+      this.handleSigninClick();
+    } else {
+      this.utilityService.alertUtil.add('danger', 'Error in signing up. Please try again.', 5000);
+    }
+  });
   }
   // handleSignupClick() { // post form data to backend
   //   this.httpClient.post('http://localhost:3000/signup', this.model)

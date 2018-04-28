@@ -74,7 +74,7 @@ export class PracticeComponent implements OnInit {
       .set('questionType', this.model.categoryDescription)
       .set('difficulty', this.model.levelDescription);
     this.httpClient
-      .get('http://localhost:3000/questions/getQuestion', { params })
+      .get('questions/getQuestions', { params })
       .subscribe(data => {
         if (isArray(data)) {
           this.questions = data;

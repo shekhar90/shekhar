@@ -4,8 +4,10 @@ import { HttpClient } from '@angular/common/http';
 // import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 
+// import { AlertComponent } from '../utility-component/alert/alert.component';
 import { UserLogin } from '../user-login';
 // import { AuthenticationService } from '../shared/authentication.service';
+import { AuthService } from '../shared/auth.service';
 import { RoutingService } from '../shared/routing.service';
 import { UtilityService } from '../shared/utility.service';
 
@@ -20,7 +22,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
+    // private alertComponent: AlertComponent,
     // public afService: AuthenticationService,
+    private authService: AuthService,
     // private toastr: ToastrService,
     private routingService: RoutingService,
     private utilityService: UtilityService
@@ -30,6 +34,25 @@ export class LoginComponent implements OnInit {
   }
   handleSignupClick() {
     this.onSignupClick.emit();
+  }
+  onLoginSubmit(loginForm: NgForm) {
+    const user = {
+      email: this.model.email,
+      password: this.model.password
+    };
+
+    this.authService.authenticateUser(user).subscribe(data => {
+        if (data.success) {
+          // console.log(data);
+          this.utilityService.alertUtil.add('success', 'Successfully logged in.', 5000);
+          this.isLoginError = false;
+          this.resetForm(loginForm);
+          this.authService.storeUserData(data.token, data.user);
+          this.routingService.goto('/practice');
+        } else {
+          this.utilityService.alertUtil.add('danger', 'Error in logging in please try again.', 5000);
+        }
+    });
   }
   // handleLoginClick() { // post form data to backend
   //   this.httpClient.post('http://localhost:3000/login', this.model)

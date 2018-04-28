@@ -45,7 +45,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-12 text-center">
-                <button (click)="login(loginForm)" type="button" class="btn btn-success" [disabled]="!loginForm.valid"><fa [name]="'sign-in'" [size]="1"></fa>Login</button>
+                <button (click)="onLoginSubmit(loginForm)" type="button" class="btn btn-success" [disabled]="!loginForm.valid"><fa [name]="'sign-in'" [size]="1"></fa>Login</button>
                 <hr class="divider">
             </div>
         </div>

@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AlertModule } from 'ngx-bootstrap/alert';
 // import { AngularFireModule } from 'angularfire2';
 // import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 // import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -21,11 +24,14 @@ import { LoginSignupComponent } from './login-signup/login-signup.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 // import { AuthenticationService } from './shared/authentication.service';
+import { AuthService } from './shared/auth.service';
 import { RoutingService } from './shared/routing.service';
 import { UtilityService } from './shared/utility.service';
 import { environment } from '../environments/environment';
 import { FooterComponent } from './footer/footer.component';
 import { AuthComponent } from './auth/auth.component';
+import { AlertComponent } from './utility-component/alert/alert.component';
+
 
 @NgModule({
   declarations: [
@@ -36,25 +42,30 @@ import { AuthComponent } from './auth/auth.component';
     LoginComponent,
     SignupComponent,
     FooterComponent,
-    AuthComponent
+    AuthComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     // MaterialuiModule,
     AppRoutingModule,
     FormsModule,
     Angular2FontawesomeModule,
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
+    MDBBootstrapModule.forRoot(),
+    AlertModule.forRoot(),
     // ToastrModule.forRoot(),
     // AngularFireModule.initializeApp(environment.firebase),
     // AngularFireDatabaseModule,
     // AngularFireAuthModule,
     BrowserAnimationsModule
   ],
-  providers: [ RoutingService, UtilityService], /* AuthenticationService, */
-  bootstrap: [AppComponent]
+  providers: [ RoutingService, UtilityService, AuthService], /* AuthenticationService, */
+  bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 
 })
 export class AppModule { }
