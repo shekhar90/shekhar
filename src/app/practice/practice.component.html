@@ -1,20 +1,21 @@
 <div class="container">
-    <div class="card col-sm mt-20">
+    <div class="card col-sm mt-20" *ngFor="let qTypeObj of qdata; let i = index">
         <div class="card-body">
-            <h5 class="card-title">{{model.title}}</h5>
+            <h5 class="card-title">{{qTypeObj.title}}</h5>
         </div>
         <div class="card-body">
             <label for="categoryDescription">Choose category</label>
-            <select class="form-control" [(ngModel)]="model.categoryDescription" name="categoryDescription" id="categoryDescription">
-          <option *ngFor="let option of categories" [value]="option.categoryDescription">{{option.categoryDescription}}</option>
+            <select class="form-control" [name]="'categoryDescription' + i" [id]="'categoryDescription' + i" [(ngModel)]="qTypeObj.categoryDescription"><!--  -->
+          <option *ngFor="let option of qTypeObj.categories" [value]="option.categoryDescription">{{option.categoryDescription}}</option>
         </select>
             <label for="levelDescription">Difficulty</label>
-            <select class="form-control" [(ngModel)]="model.levelDescription" name="levelDescription" id="levelDescription">
+            <select class="form-control" [name]="'levelDescription' + i" [id]="'levelDescription' + i" [(ngModel)]="qTypeObj.levelDescription"><!--  -->
           <option *ngFor="let option of difficulty" [value]="option.levelDescription">{{option.levelDescription}}</option>
         </select>
         </div>
         <div class="card-body">
-            <button (click)="openModal(templateConfirmation)" type="button" class="btn btn-outline-primary">{{model.btnTxt}}</button>
+            <button (click)="openModal(templateConfirmation);updateModel(qTypeObj.categoryDescription, qTypeObj.levelDescription)" type="button" class="btn btn-outline-primary">Next</button>
+            <!-- {{model.btnTxt}} -->
         </div>
     </div>
 </div>
@@ -28,7 +29,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" (click)="handleNextClick(template)">I'm ready let the war begin..</button>
+        <button type="button" class="btn btn-outline-success" (click)="handleNextClick(template)"><!-- I'm ready let the war begin.. -->Yes</button>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" (click)="closeModal()">I wanna change settings.....</button>
@@ -41,7 +42,8 @@
     </div>
     <div class="question-modal-body">
         <div class="modal-body">
-            <p class="text-left padding-b-10 border-b-q" [innerHTML]="'Q. ' + questions[nextQuestionIndex].question"></p>
+            <app-question [question]="questions[nextQuestionIndex].question"></app-question>
+            <!-- <p class="text-left padding-b-10 border-b-q" [innerHTML]="'Q. ' + questions[nextQuestionIndex].question"></p> -->
             <p class="text-left padding-b-10 border-b-q" (click)="handleOptionClick(i)" *ngFor="let option of questions[nextQuestionIndex].options; let i = index">
                 {{i + '. '}}<span [innerHTML]="option" [ngClass]="{'text-success': (questions[nextQuestionIndex].answer === i) && optionValidationArr[i],'text-danger': (questions[nextQuestionIndex].answer !== i) && optionValidationArr[i]}"></span>
                 <span class="float-right" [ngClass]="{'text-success': (questions[nextQuestionIndex].answer === i) && optionValidationArr[i]}" *ngIf="(questions[nextQuestionIndex].answer === i) && optionValidationArr[i]">You are right</span><span class="float-right"
@@ -54,7 +56,7 @@
                 <p class="text-danger">This will reduce your score please try your best before viewing the answer</p>
                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                     <div class="card card-body">
-                        Correct answer: <span class="text-success">{{questions[nextQuestionIndex].answer}}</span><br> Explaination: <span></span>
+                        Correct answer: <span class="text-success">{{questions[nextQuestionIndex].answer}}</span><br> Explaination: <span class="text-success">{{questions[nextQuestionIndex].explaination}}</span>
                     </div>
                 </div>
             </div>

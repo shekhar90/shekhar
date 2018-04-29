@@ -13,6 +13,7 @@ import { HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { isArray } from 'util';
 import * as _ from 'lodash';
+import { QDATA } from '../data/question';
 
 @Component({
   selector: 'app-practice',
@@ -20,10 +21,14 @@ import * as _ from 'lodash';
   styleUrls: ['./practice.component.css']
 })
 export class PracticeComponent implements OnInit {
+  qdata = QDATA;
   constructor(
     private modalService: BsModalService,
     private httpClient: HttpClient
-  ) {}
+  ) {
+    this.initializeModel();
+    // console.log('QDATA -> ', QDATA);
+  }
   categories: Category[] = [
     { id: '1', categoryDescription: 'Problems on train' },
     { id: '2', categoryDescription: 'Permutations and combinations' }
@@ -63,6 +68,13 @@ export class PracticeComponent implements OnInit {
   };
   isAllQuestionModelVisible = false;
   modalRef: BsModalRef;
+  highlighted = false;
+  initializeModel() {
+    this.qdata.forEach((data, index) => {
+      this.qdata[index]['categoryDescription'] = data.categories[0].categoryDescription;
+      this.qdata[index]['levelDescription'] = this.difficulty[0].levelDescription;
+    });
+  }
   handleNextClick(template: TemplateRef<any>) {
     // TODO api call get questions array on the basis of selected
     // 1. category
@@ -217,6 +229,14 @@ export class PracticeComponent implements OnInit {
       wrongPer: 0
     };
     this.closeModal();
+  }
+  updateModel(categoryDescription, levelDescription) {
+    this.model = new PracticeCard(
+      'Aptitude',
+      categoryDescription,
+      levelDescription,
+      'Next'
+    );
   }
   ngOnInit() {}
 }

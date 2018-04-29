@@ -31,6 +31,8 @@ import { environment } from '../environments/environment';
 import { FooterComponent } from './footer/footer.component';
 import { AuthComponent } from './auth/auth.component';
 import { AlertComponent } from './utility-component/alert/alert.component';
+import { HighlightService } from './shared/highlight.service';
+import { QuestionComponent } from './utility-component/question/question.component';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { AlertComponent } from './utility-component/alert/alert.component';
     SignupComponent,
     FooterComponent,
     AuthComponent,
-    AlertComponent
+    AlertComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,7 @@ import { AlertComponent } from './utility-component/alert/alert.component';
     // AngularFireAuthModule,
     BrowserAnimationsModule
   ],
-  providers: [ RoutingService, UtilityService, AuthService], /* AuthenticationService, */
+  providers: [ RoutingService, UtilityService, AuthService, HighlightService], /* AuthenticationService, */
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 

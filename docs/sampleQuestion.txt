@@ -1,3 +1,6 @@
+http://prismjs.com/
+https://www.textfixer.com/html/compress-html-compression.php
+
 questions: Question[] = [{ 
     id: "1",
     questionType: "Permutations and combinations",
@@ -21,3 +24,103 @@ questions: Question[] = [{
     ],
     answer: 3
   }];
+
+
+
+  { 
+    "id": "3",
+    "questionType": "Declarations and Initializations",
+    "difficulty": "Easy",
+    "question": `
+    What would be the output of following program?<br>
+    <code>
+            main() {<br>
+            	&nbsp;&nbsp;char far = *t1, *t2;<br>
+    			&nbsp;&nbsp;printf("%d%d", sizeof(t1), sizeof(t2));<br>
+            }
+        </code>`,
+    "options": ["18",
+      "12",
+      "6",
+      "0"],
+    "answer": 2
+  }
+
+  { 
+    "id": "3",
+    "questionType": "Declarations and Initializations",
+    "difficulty": "Easy",
+    "question": `
+    What would be the output of following program?<br>
+    <code>
+  int s = 40 <br>
+            main() {<br>
+            	&nbsp;&nbsp;int s = 20;<br>
+    			&nbsp;&nbsp;printf("\n%d", s);<br>
+            }
+        </code>`,
+    "options": ["18",
+      "12",
+      "6",
+      "0"],
+    "answer": 2
+  }
+  { 
+    "id": "3",
+    "questionType": "Declarations and Initializations",
+    "difficulty": "Easy",
+    "question": `
+    What would be the output of following program?<br>
+<code>
+  
+            main() {<br>
+            	&nbsp;&nbsp;int t = 40;<br>
+  &nbsp;&nbsp;{<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;int t = 20;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;printf("\n%d", t);<br>
+  &nbsp;&nbsp;}<br>
+  
+    			&nbsp;&nbsp;printf("\n%d", t);<br>
+            }
+        </code>`,
+    "options": ["18",
+      "12",
+      "6",
+      "0"],
+    "answer": 2
+  }
+
+  { 
+    "id": "3",
+    "questionType": "Declarations and Initializations",
+    "difficulty": "Easy",
+    "question": `
+    What would be the output of following program?<br>
+<pre class="lang-c line-numbers mt-0 mb-0">
+                    <code>
+                            main() {{'{'}} 
+                                int a = 10; 
+                                float b = 34.8; 
+                            {{'}'}}
+                        </code>
+                    </pre>`,
+    "options": ["18",
+      "12",
+      "6",
+      "0"],
+    "answer": 2
+  }
+
+
+  
+  { 
+    "id": "tycs1.1",
+    "questionType": "Declarations and Initializations",
+    "difficulty": "Easy",
+    "question": "What would be the output of following program?<br><pre class='lang-c line-numbers mt-1 mb-0'><code> main() {\n &nbsp;&nbsp;&nbsp;&nbsp;char far = *t1, *t2;\n &nbsp;&nbsp;&nbsp;&nbsp;printf(\"%d%d\", sizeof(t1), sizeof(t2));\n } </code></pre>",
+    "options": ["2 4",
+      "2 2",
+      "4 2",
+      "4 4"],
+    "answer": 3
+  }
