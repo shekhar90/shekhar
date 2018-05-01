@@ -32,6 +32,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AuthComponent } from './auth/auth.component';
 import { AlertComponent } from './utility-component/alert/alert.component';
 import { HighlightService } from './shared/highlight.service';
+import { AuthGuard } from './guards/auth.guard';
 import { QuestionComponent } from './utility-component/question/question.component';
 
 
@@ -66,7 +67,7 @@ import { QuestionComponent } from './utility-component/question/question.compone
     // AngularFireAuthModule,
     BrowserAnimationsModule
   ],
-  providers: [ RoutingService, UtilityService, AuthService, HighlightService], /* AuthenticationService, */
+  providers: [ RoutingService, UtilityService, AuthService, HighlightService, AuthGuard], /* AuthenticationService, */
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 
