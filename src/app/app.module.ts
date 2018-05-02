@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+// import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AlertModule } from 'ngx-bootstrap/alert';
 // import { AngularFireModule } from 'angularfire2';
 // import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
@@ -59,7 +59,7 @@ import { QuestionComponent } from './utility-component/question/question.compone
     Angular2FontawesomeModule,
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
-    MDBBootstrapModule.forRoot(),
+    // MDBBootstrapModule.forRoot(),
     AlertModule.forRoot(),
     // ToastrModule.forRoot(),
     // AngularFireModule.initializeApp(environment.firebase),
