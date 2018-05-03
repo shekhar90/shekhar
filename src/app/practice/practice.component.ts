@@ -68,6 +68,10 @@ export class PracticeComponent implements OnInit {
   };
   isAllQuestionModelVisible = false;
   modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
   highlighted = false;
   initializeModel() {
     this.qdata.forEach((data, index) => {
@@ -158,7 +162,7 @@ export class PracticeComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, this.config);
   }
   closeModal() {
     this.modalRef.hide();
